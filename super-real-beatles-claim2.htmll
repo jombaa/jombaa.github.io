@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Beatles — 65th Anniversary Collection (Demo, Flag Capture)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{--bg:#f7f9fc;--card:#fff;--muted:#6b7280;--accent:#111;}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+    .card{width:100%;max-width:760px;background:var(--card);padding:26px;border-radius:12px;box-shadow:0 10px 28px rgba(17,17,17,0.07);}
+    .logo{font-weight:800;letter-spacing:0.6px}
+    .tag{display:inline-block;background:#eef7ff;color:#075985;padding:6px 10px;border-radius:999px;font-weight:700;margin-top:8px;font-size:13px}
+    .hero{display:flex;gap:20px;align-items:center;margin-top:12px}
+    .cover{width:120px;height:120px;border-radius:8px;background:linear-gradient(135deg,#eee,#ddd);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;color:#555}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 12px;color:var(--muted)}
+    label{display:block;margin-top:12px;font-size:14px;color:#333}
+    input[type="text"], input[type="password"], textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #e6e9f0;margin-top:6px;box-sizing:border-box;font-size:15px}
+    .btn{margin-top:14px;padding:12px 16px;border-radius:10px;border:0;font-weight:700;cursor:pointer;background:var(--accent);color:white}
+    .notice{margin-top:14px;background:#fff4e5;border-left:4px solid #ffb020;padding:10px;border-radius:6px;color:#6b4b00}
+    .success{margin-top:14px;background:#e7f9ee;border-left:4px solid #2b9a4a;padding:12px;border-radius:6px;color:#0b5a2f}
+    .small{font-size:13px;color:var(--muted);margin-top:10px}
+    .admin-list{margin-top:12px;border-top:1px dashed #e6e9f0;padding-top:12px}
+    .flag-row{padding:8px 10px;border-radius:8px;background:#fafafc;margin-bottom:8px;border:1px solid #eef0f6;font-size:14px}
+    .controls{display:flex;gap:8px;margin-top:8px}
+    pre{white-space:pre-wrap;word-break:break-word}
+    @media (max-width:600px){.hero{flex-direction:column;align-items:flex-start}.cover{width:108px;height:108px}}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="title">
+    <div class="logo">The Beatles Official Fan Club</div>
+    <div class="tag">65th Anniversary • Limited Edition</div>
+
+    <section class="hero" aria-label="Hero">
+      <div class="cover" aria-hidden="true">
+        65<br/><span style="font-size:12px;margin-top:6px">YEARS</span>
+      </div>
+      <div>
+        <h1 id="title">Claim your FREE 65th Anniversary Collection — Contains <em>all the hits!</em></h1>
+        <p class="lead">To celebrate 65 years since The Beatles started, we reserved an exclusive anniversary collection featuring every major hit and rare liner notes for a handful of our top fans. This offer is valid <strong>today only</strong>.</p>
+      </div>
+    </section>
+
+    <!-- Victim / demo form -->
+    <form id="demoForm" onsubmit="return false;" aria-describedby="demo-note">
+      <label for="fanId">Fan club membership number or claim code</label>
+      <input id="fanId" type="text" placeholder="e.g. FAN-1960-XXXX" autocomplete="off">
+
+      <label for="delivery">Delivery name (for demo only)</label>
+      <input id="delivery" type="text" placeholder="Full name to reserve copy" autocomplete="off">
+
+      <label for="flag">Password (enter the FLAG here) — <em>demo only</em></label>
+      <input id="flag" type="text" placeholder="Enter the flag (do NOT use a real password)" autocomplete="off" inputmode="text">
+
+      <button id="claimBtn" class="btn" type="button">Reserve my free 65th Anniversary Collection</button>
+
+      <div id="result" aria-live="polite"></div>
+
+      <div id="demo-note" class="notice" role="note">
+        <strong>Educational demo:</strong> Do NOT enter real passwords or personal credentials. This page stores submitted flags locally in your browser for grading/demo only. No values are sent to any server.
+      </div>
+    </form>
+
+    <div class="small">To view captured flags (instructor): open this page with <code>?admin=1</code> added to the URL. Example: <em>beatles-65-flag-demo.html?admin=1</em></div>
+  </main>
+
+  <script>
+    // SAFE DEMO: stores flags only in localStorage under key 'bt_flags_demo'
+    const STORAGE_KEY = 'bt_flags_demo_v1';
+
+    function loadStored() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveStored(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    // Submission handler
+    document.getElementById('claimBtn').addEventListener('click', () => {
+      const fanId = document.getElementById('fanId').value.trim();
+      const delivery = document.getElementById('delivery').value.trim();
+      const flag = document.getElementById('flag').value.trim();
+
+      if (!flag) {
+        document.getElementById('result').innerHTML = '<div class="notice">Please enter the flag (demo only) to reserve your copy.</div>';
+        return;
+      }
+
+      // store locally only
+      const existing = loadStored();
+      existing.push({
+        flag: flag,
+        fanId: fanId || null,
+        delivery: delivery || null,
+        timestamp: new Date().toISOString()
+      });
+      saveStored(existing);
+
+      document.getElementById('result').innerHTML = '<div class="success"><strong>Reservation confirmed!</strong> Your 65th Anniversary Collection containing <em>all the hits</em> has been reserved. (Demo flag stored locally.)</div>';
+
+      // clear inputs to avoid reuse
+      document.getElementById('fanId').value = '';
+      document.getElementById('delivery').value = '';
+      document.getElementById('flag').value = '';
+    });
+
+    // --- Admin view rendering when ?admin=1 is present ---
+    function isAdminView() {
+      return location.search && location.search.includes('admin=1');
+    }
+
+    if (isAdminView()) {
+      // create and show admin panel
+      const adminPanel = document.createElement('section');
+      adminPanel.className = 'card';
+      adminPanel.style.marginTop = '18px';
+      adminPanel.innerHTML = '<h2 style="margin:0 0 8px 0">Instructor / Admin: Captured flags (localStorage)</h2>';
+      document.body.appendChild(adminPanel);
+
+      function renderAdmin() {
+        const stored = loadStored();
+        adminPanel.innerHTML = '<h2 style="margin:0 0 8px 0">Instructor / Admin: Captured flags (localStorage)</h2>';
+        if (stored.length === 0) {
+          adminPanel.innerHTML += '<div class="small">No flags captured yet.</div>';
+        } else {
+          const list = document.createElement('div');
+          list.className = 'admin-list';
+          stored.slice().reverse().forEach((row, idx) => {
+            const r = document.createElement('div');
+            r.className = 'flag-row';
+            r.innerHTML = '<div><strong>Flag:</strong> <code>' + escapeHtml(row.flag) + '</code></div>'
+                        + '<div style="margin-top:6px;"><strong>FanId:</strong> ' + escapeHtml(row.fanId || '-') + ' &nbsp; <strong>Name:</strong> ' + escapeHtml(row.delivery || '-') + '</div>'
+                        + '<div style="margin-top:6px;font-size:13px;color:#555"><strong>Captured:</strong> ' + escapeHtml(row.timestamp) + '</div>';
+            list.appendChild(r);
+          });
+          adminPanel.appendChild(list);
+
+          // controls: export / clear
+          const ctr = document.createElement('div');
+          ctr.className = 'controls';
+          const btnExport = document.createElement('button');
+          btnExport.textContent = 'Export JSON';
+          btnExport.className = 'btn';
+          btnExport.style.background = '#0b5cff';
+          btnExport.onclick = () => {
+            const data = JSON.stringify(loadStored(), null, 2);
+            const blob = new Blob([data], {type:'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'bt_flags_demo.json';
+            a.click();
+            URL.revokeObjectURL(url);
+          };
+
+          const btnClear = document.createElement('button');
+          btnClear.textContent = 'Clear stored flags';
+          btnClear.className = 'btn';
+          btnClear.style.background = '#d12f2f';
+          btnClear.onclick = () => {
+            if (confirm('Clear all stored flags from localStorage? This action cannot be undone.')) {
+              localStorage.removeItem(STORAGE_KEY);
+              renderAdmin();
+            }
+          };
+
+          ctr.appendChild(btnExport);
+          ctr.appendChild(btnClear);
+          adminPanel.appendChild(ctr);
+        }
+      }
+
+      // helper escape
+      function escapeHtml(s){ return String(s).replace(/[&<>"'\/]/g, function (c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#47;'}[c]; }); }
+
+      renderAdmin();
+    }
+  </script>
+</body>
+</html>
