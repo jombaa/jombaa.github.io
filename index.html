@@ -1,90 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Special Edition Anniversary Album</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Beatles — 65th Anniversary Collection</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #0b1725; color: #e6edf3; }
-    header, footer { padding: 1rem 1.25rem; background: #0f2238; }
-    main { max-width: 720px; margin: 2rem auto; padding: 1.25rem; background: #11263f; border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
-    h1, h2 { margin: 0.2rem 0 1rem; }
-    .card { background: #0f2034; padding: 1rem; border-radius: 10px; border: 1px solid #24476b; }
-    label { display: block; margin: 0.75rem 0 0.25rem; }
-    input[type="text"], input[type="email"], input[type="password"] {
-      width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #355b84; background: #0b1a2a; color: #e6edf3;
-    }
-    button {
-      margin-top: 1rem; background: #2f81f7; color: #fff; border: none; padding: 0.7rem 1rem;
-      border-radius: 8px; cursor: pointer; font-weight: 600;
-    }
-    .notice { margin-top: 1rem; padding: 0.75rem; border-left: 4px solid #f0ad4e; background: #1d2b3d; }
-    .hidden { display: none; }
-    ul { margin-top: 0.5rem; }
-    a { color: #9cc8ff; }
+    :root{--bg:#f7f7fb;--card:#fff;--muted:#6b7280;--accent:#111;}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:var(--bg);color:#111;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+    .card{width:100%;max-width:920px;background:var(--card);padding:26px;border-radius:12px;box-shadow:0 12px 36px rgba(17,17,17,0.07);}
+    .hero-img{width:100%;height:320px;background:#ddd;border-radius:8px;background-size:cover;background-position:center;margin-bottom:18px;}
+    .logo{font-weight:800;letter-spacing:0.6px}
+    .tag{display:inline-block;background:#eef7ff;color:#075985;padding:6px 10px;border-radius:999px;font-weight:700;margin-top:8px;font-size:13px}
+    h1{margin:12px 0 4px;font-size:24px}
+    .lead{margin:8px 0 14px;color:var(--muted);line-height:1.4}
+    .waitfor{font-size:18px;font-weight:600;margin-top:12px;color:#222;}
+    label{display:block;margin-top:12px;font-size:14px;color:#333}
+    input[type="text"]{width:100%;padding:12px;border-radius:8px;border:1px solid #e6e9f0;margin-top:6px;box-sizing:border-box;font-size:15px}
+    .btn{margin-top:14px;padding:12px 16px;border-radius:10px;border:0;font-weight:700;cursor:pointer;background:var(--accent);color:white}
+    .success{margin-top:14px;background:#e7f9ee;border-left:4px solid #2b9a4a;padding:12px;border-radius:6px;color:#0b5a2f}
+    .small{font-size:13px;color:var(--muted);margin-top:10px}
   </style>
 </head>
 <body>
-  <header>
-    <strong>Only Today! Anniversary Album Offer</strong>
-  </header>
+  <main class="card" role="main" aria-labelledby="pageTitle">
+    <!-- Hero image -->
+    <div class="hero-img" style="background-image:url('Beatles-1964.webp');"></div>
 
-  <main>
-    <h1>Hello Laszlo!</h1>
-    <p>You’re one of our biggest fans. Claim your Special Edition Anniversary Beatles Album—today only!</p>
+    <div class="logo">The Beatles Official Fan Club</div>
+    <div class="tag">65th Anniversary • Limited Edition</div>
 
-    <div class="card">
-      <h2>Redeem your access</h2>
-      <!-- These fields exist only to mimic a phish. They will never submit anywhere. -->
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="name@example.com" autocomplete="off" />
-      <label for="pwd">Password</label>
-      <input id="pwd" type="password" placeholder="Password" autocomplete="off" />
-      <button id="redeemBtn">Redeem</button>
+    <h1 id="pageTitle">Claim your FREE 65th Anniversary Collection — Contains <em>all the hits!</em></h1>
+    <p class="lead">To celebrate 65 years since The Beatles started, we reserved an exclusive anniversary collection featuring every major hit and rare liner notes for a handful of our top fans. This offer is valid <strong>today only</strong>. Reserve your copy now.</p>
 
-      <div id="reveal" class="notice hidden" role="alert" aria-live="polite">
-        <strong>This was a training simulation.</strong>
-        <p>No information was collected or transmitted. Here are the red flags this scenario demonstrates:</p>
-        <ul>
-          <li>Urgency and scarcity: “Only today!” pressure tactic.</li>
-          <li>Unexpected reward from a famous brand you didn’t request.</li>
-          <li>Request for your account password to claim a prize—legitimate offers never ask for that.</li>
-          <li>Suspicious domain or hosting that doesn’t match the brand.</li>
-        </ul>
-        <p>What to do in real life:</p>
-        <ul>
-          <li>Don’t enter passwords on promo pages; go directly to the official site by typing the URL.</li>
-          <li>Verify sender address and links before clicking. Hover to inspect URLs.</li>
-          <li>Report suspected phish to your IT/security team.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="waitfor">We are waiting for you, Laszlo.</div>
 
-    <div class="card" style="margin-top:1rem;">
-      <h2>Report and Learn</h2>
-      <p>If you suspect a real phishing email, report it to your university’s security team at
-         <a href="mailto:security@example.edu">security@example.edu</a> and consult the official guidance.</p>
-    </div>
+    <form id="claimForm" onsubmit="return false;">
+      <label for="fanId">Fan club membership number or claim code</label>
+      <input id="fanId" type="text" placeholder="e.g. FAN-1960-XXXX" autocomplete="off">
+
+      <label for="flag">Password (enter the FLAG)</label>
+      <input id="flag" type="text" placeholder="Enter the flag (not a real password)" autocomplete="off" inputmode="text">
+
+      <button id="submitBtn" class="btn" type="button">Reserve my free 65th Anniversary Collection</button>
+
+      <div id="result" aria-live="polite"></div>
+      <p class="small">© 2025 The Beatles Fan Club — Educational demo for security training.</p>
+    </form>
+
+    <script>
+      // Local storage only (no external data sent)
+      const STORAGE_KEY = 'bt_flags_demo_v1';
+      const btn = document.getElementById('submitBtn');
+      const result = document.getElementById('result');
+
+      btn.addEventListener('click', () => {
+        const fanId = document.getElementById('fanId').value.trim();
+        const flag = document.getElementById('flag').value.trim();
+
+        if (!flag) {
+          result.innerHTML = '<div class="small" style="color:#a33">Please enter the flag to reserve your copy.</div>';
+          return;
+        }
+
+        const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        arr.push({fanId, flag, ts:new Date().toISOString()});
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+
+        result.innerHTML = '<div class="success"><strong>Reservation confirmed!</strong> Your 65th Anniversary Collection containing <em>all the hits</em> has been reserved locally.</div>';
+
+        document.getElementById('fanId').value = '';
+        document.getElementById('flag').value = '';
+      });
+    </script>
   </main>
-
-  <footer>
-    IN5290 UiO Phishing Awareness Simulation — No data is collected.
-  </footer>
-
-  <script>
-    const btn = document.getElementById('redeemBtn');
-    const reveal = document.getElementById('reveal');
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Clear fields and reveal the training message. Do not send anything anywhere.
-      const email = document.getElementById('email');
-      const pwd = document.getElementById('pwd');
-      email.value = '';
-      pwd.value = '';
-      reveal.classList.remove('hidden');
-      btn.disabled = true;
-      btn.textContent = 'Simulation complete';
-    });
-  </script>
 </body>
 </html>
