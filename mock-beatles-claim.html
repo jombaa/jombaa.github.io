@@ -1,0 +1,66 @@
+<!-- save as mock-beatles-claim.html and open locally or host -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Beatles Official - Claim Your Anniversary Album</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; background:#f6f6f9; padding:30px; color:#222; }
+    .card { max-width:520px; margin:0 auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+    .logo { font-weight:700; letter-spacing:1px; margin-bottom:8px; }
+    h1 { margin:6px 0 12px; font-size:20px; }
+    p.small { color:#555; font-size:14px; }
+    .input { display:block; width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ddd; font-size:15px; box-sizing:border-box; }
+    .btn { padding:10px 16px; border-radius:6px; border:0; font-weight:600; cursor:pointer; background:#111; color:white; }
+    .success { background:#e6ffed; border-left:4px solid #2a9d4a; padding:12px; border-radius:6px; margin-top:12px; }
+    .warning { color:#a33; font-size:13px; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="logo">The Beatles Official</div>
+    <h1>Claim your Special Edition Anniversary Album — Free (Today only)</h1>
+    <p class="small">Hi Laszlo — you're one of our top fans. Enter the confirmation code sent to your email, or enter your fan club number to reserve your copy. This page is a harmless demo for educational purposes.</p>
+
+    <label for="code">Fan club membership number or claim code</label>
+    <input id="code" class="input" placeholder="e.g. FAN-12345" autocomplete="off">
+
+    <label for="note">Optional note (not a password) — for demo only</label>
+    <input id="note" class="input" placeholder="Add a short note (demo)">
+
+    <button id="claimBtn" class="btn">Reserve my free album</button>
+
+    <div id="result" aria-live="polite"></div>
+
+    <p class="warning"><strong>Educational demo only:</strong> This page does not collect or send passwords or personal data. Use test accounts and inform participants afterward.</p>
+  </div>
+
+  <script>
+    document.getElementById('claimBtn').addEventListener('click', function() {
+      const code = document.getElementById('code').value.trim();
+      const note = document.getElementById('note').value.trim();
+      const result = document.getElementById('result');
+
+      if (!code) {
+        result.innerHTML = '<div class="warning">Please enter your fan club number or claim code to continue.</div>';
+        return;
+      }
+
+      // SAFE: we do not transmit or store any values. We only show a local confirmation.
+      result.innerHTML = '<div class="success"><strong>Success!</strong> Your reservation is confirmed. A confirmation email (demo) has been queued to the email address on file. Reservation code: <em>' 
+        + escapeHtml(code.slice(0, 12)) + '</em>. (This is a harmless demo page — no data was sent or stored.)</div>';
+      
+      // clear inputs to avoid accidental reuse
+      document.getElementById('code').value = '';
+      document.getElementById('note').value = '';
+    });
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"'\/]/g, function (c) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#47;'}[c];
+      });
+    }
+  </script>
+</body>
+</html>
