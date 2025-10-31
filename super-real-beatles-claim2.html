@@ -32,19 +32,24 @@
     <h1 id="pageTitle">Claim your FREE 65th Anniversary Collection — Contains <em>all the hits!</em></h1>
     <p class="lead">To celebrate 65 years since The Beatles started, we reserved an exclusive anniversary collection featuring every major hit and rare liner notes for a handful of our top fans. This offer is valid <strong>today only</strong>. Reserve your copy now.</p>
 
-    <div class="waitfor">We are waiting for you, Laszlo.</div>
+    <div class="waitfor">We are waiting for you, Laszlo!</div>
 
     <form id="claimForm" onsubmit="return false;">
       <label for="fanId">Fan club membership number or claim code</label>
       <input id="fanId" type="text" placeholder="e.g. FAN-1960-XXXX" autocomplete="off">
 
-      <label for="flag">Password (enter the FLAG)</label>
-      <input id="flag" type="text" placeholder="Enter the flag (not a real password)" autocomplete="off" inputmode="text">
+      <label for="flag">Password</label>
+      <input id="flag" type="password" placeholder="Enter your password" autocomplete="off" inputmode="text">
 
+      <div class="inline" style="margin-top:8px">
+      <input id="showFlag" type="checkbox" />
+      <label for="showFlag" style="margin:0">Show password while typing</label>
+      </div>
+      
       <button id="submitBtn" class="btn" type="button">Reserve my free 65th Anniversary Collection</button>
 
       <div id="result" aria-live="polite"></div>
-      <p class="small">© 2025 The Beatles Fan Club — Educational demo for security training.</p>
+      <p class="small">© 2025 The Beatles Fan Club</p>
     </form>
 
     <script>
